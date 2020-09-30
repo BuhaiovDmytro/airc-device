@@ -14,7 +14,7 @@ void data_collector(void *pvParameters)
     xEventGroupWaitBits(
             eg_task_started,
             (EG_INIT_STARTED | EG_ETHERIF_IN_STARTED | EG_LINK_STATE_STARTED |
-            EG_DHCP_FSM_STARTED | ETH_SERVER_STARTED | ETH_SENDER_STARTED |
+            EG_DHCP_FSM_STARTED | EG_ETH_SERVER_STARTED | EG_ETH_SENDER_STARTED |
             EG_ANALOG_TEMP_STARTED | EG_UART_SENSORS_STARTED),
             pdFALSE,
             pdTRUE,
@@ -27,10 +27,10 @@ void data_collector(void *pvParameters)
         packet.no2=get_NO2()->specPPB;
         packet.o3=get_O3()->specPPB;
         packet.temp=get_analog_temp();
-        //packet.hcho=;
+        packet.hcho=get_HCHO();
+        packet.pm10 = get_pm10();
+        packet.pm2_5 = get_pm2_5();
         //packet.humidity=;
-        //packet.pm10=;
-        //packet.pm2_5;
         //packet.pressure=;
         //packet.tvoc=;
         //TODO: Do return value processing.
